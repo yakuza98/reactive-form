@@ -1,0 +1,168 @@
+<section class="data-section">
+  <div class="container">
+    <form
+      [formGroup]="joinForm"
+      (ngSubmit)="onSubmit()"
+      novalidate
+      class="form-data">
+      <div class="title__block">
+        <h1 class="title__form">Join to</h1>
+        <div>
+          <img class="title__img" [src]="titleLogo" alt="title-logo">
+        </div>
+        <h1 class="title__form">our team</h1>
+      </div>
+      <div class="form-content">
+        <mat-list class="label-option-form" role="list">
+          <p>Name</p>
+          <p>Surname</p>
+          <p>Birthday</p>
+          <p>Framework</p>
+          <p>Version</p>
+          <p>Enter E-mail</p>
+          <p>Hobbies</p>
+        </mat-list>
+        <div class="form-block">
+          <!--Name-->
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your name</mat-label>
+            <input
+              formControlName="firstName"
+              matInput
+              (input)="changeInputCase('firstName', inputCases.first)"
+             >
+            <mat-error
+              *ngIf="formControlError('firstName', 'required')">
+              Name field is required
+            </mat-error>
+          </mat-form-field>
+          <!--Surname-->
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your surname</mat-label>
+            <input
+              formControlName="lastName"
+              matInput
+              (input)="changeInputCase('lastName', inputCases.first)"
+              >
+            <mat-error
+              *ngIf="formControlError('lastName', 'required')">
+              Surname field is required
+            </mat-error>
+          </mat-form-field>
+          <!--Datepicker-->
+          <mat-form-field class="date-picker">
+            <mat-label>Choose a date</mat-label>
+            <input
+              matInput
+              readonly
+              formControlName="dateOfBirth"
+              [matDatepicker]="datepicker">
+            <mat-hint>MM/DD/YYYY</mat-hint>
+            <mat-datepicker-toggle matIconSuffix [for]="datepicker"></mat-datepicker-toggle>
+            <mat-datepicker #datepicker>
+              <mat-datepicker-actions>
+                <button mat-button matDatepickerCancel>Cancel</button>
+                <button mat-raised-button color="primary" matDatepickerApply>Apply</button>
+              </mat-datepicker-actions>
+            </mat-datepicker>
+            <mat-error
+              *ngIf="formControlError('dateOfBirth', 'required')">
+              Your birthday is required
+            </mat-error>
+          </mat-form-field>
+          <!--Framework-->
+          <mat-form-field appearance="outline">
+            <mat-label>Choose your framework</mat-label>
+            <mat-select
+              formControlName="framework"
+              [(ngModel)]="selectedFramework"
+              (ngModelChange)="onSelectFramework()"
+            >
+              <mat-option
+                *ngFor="let framework of frameworks"
+                [value]="framework"
+              >
+                {{framework | letterCase : inputCases.first}}
+              </mat-option>
+            </mat-select>
+            <mat-error
+              *ngIf="formControlError('framework', 'required')">
+              Your framework is required
+            </mat-error>
+          </mat-form-field>
+          <!--Version-->
+          <mat-form-field appearance="outline"
+          >
+            <mat-label>Your version</mat-label>
+            <mat-select
+              formControlName="frameworkVersion"
+              [disabled]="!selectedFramework"
+            >
+              <mat-option
+                *ngFor="let version of versionOne" [value]="version">
+                {{ version }}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngIf="formControlError('frameworkVersion', 'required')">
+              Version field is required
+            </mat-error>
+          </mat-form-field>
+          <!--E-mail-->
+          <mat-form-field appearance="outline">
+            <mat-label>Enter your E-mail</mat-label>
+            <input
+              formControlName="email"
+              matInput
+              (input)="changeInputCase('email', inputCases.lower)"
+            >
+            <mat-error
+              *ngIf="formControlError('email', 'required')">
+              Email field is required
+            </mat-error>
+            <mat-error *ngIf="formControlError('email', 'emailExists')">
+              This e-mail already exists
+            </mat-error>
+            <mat-error
+              *ngIf="formControlError('email', 'email')">
+               Please enter correct email
+            </mat-error>
+          </mat-form-field>
+          <!--Hobbies-->
+          <mat-form-field appearance="outline">
+            <mat-label>Add hobby</mat-label>
+            <mat-chip-grid
+              #chipGrid aria-label="Enter keywords">
+              <mat-chip-row
+                *ngFor="let hobby of hobbies"  [removable]="true" (removed)="removeKeyword(hobby)">
+                {{hobby.name}}
+                <button matChipRemove aria-label="'remove ' + keyword">
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+            </mat-chip-grid>
+            <input
+              #inputClearRef
+              placeholder="New hobby..."
+              [matChipInputFor]="chipGrid"
+              (focusout)="add()"
+            />
+            <mat-error *ngIf="formControlError('hobby',  'required')">
+              Enter at least 1 hobby
+            </mat-error>
+          </mat-form-field>
+          <!--Submit Button-->
+          <div class="btn">
+            <button
+              class="btn-sub"
+              mat-raised-button
+              type="submit"
+              [disabled]="!joinForm.valid || pending"
+            >
+              Send out
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>

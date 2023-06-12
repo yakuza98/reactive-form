@@ -1,0 +1,80 @@
+.data-section {
+  box-sizing: border-box;
+  background-color: darkslategray;
+  height: 100vh;
+  font-family: 'Cabin', sans-serif;
+  display: flex;
+}
+.container {
+  max-width: 660px;
+  margin: auto;
+}
+.title__block{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 10px;
+}
+.title__form{
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 28px;
+  font-family: 'Cabin', sans-serif;
+}
+.title__img{
+  height: 60px;
+  transition: height 0.2s linear;
+  &:hover {
+    height: 50px;
+  }
+}
+.form-data {
+  background-color: #FFFFFF;
+  border-radius: 5px;
+  padding: 10px 35px 30px 35px;
+  min-width: 660px;
+
+}
+.form-content {
+  display: flex;
+
+}
+.label-option-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  margin: -17px 45px 0 0;
+  height: 550px;
+  font-weight: 600;
+  font-size: 18px;
+  min-width: 105px;
+}
+.form-block{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80%;
+}
+.btn {
+  background-color: #FFFFFF;
+  padding-top: 15px;
+  width: 100%;
+
+  &-sub {
+    padding: 28px 40px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 19px;
+    font-family: 'Cabin', sans-serif;
+  }
+}
+::ng-deep{
+  .mat-datepicker-content .mat-calendar {
+    width: 350px !important;
+  }
+  .mat-datepicker-actions {
+    margin-top: 35px;
+  }
+}
+
